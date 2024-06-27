@@ -17,5 +17,9 @@ public class Enemy : MonoBehaviour
         Vector3 lookdirection = (player.transform.position - transform.position).normalized;//normalized will help them to maintain an equal distance.
         enemyRb.AddForce(lookdirection * speed);
         
+        if(transform.position.y < -10)
+        {
+            Destroy(gameObject);
+        }
     }
 }
