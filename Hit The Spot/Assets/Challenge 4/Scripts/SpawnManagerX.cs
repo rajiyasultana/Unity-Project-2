@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManagerX : MonoBehaviour
@@ -11,16 +10,18 @@ public class SpawnManagerX : MonoBehaviour
     private float spawnRangeX = 10;
     private float spawnZMin = 15; // set min spawn Z
     private float spawnZMax = 25; // set max spawn Z
-
+     
     public int enemyCount;
     public int waveCount = 1;
+
+    private bool isSpawning = false;
 
 
     
     void Start()
     {
         //Instantiate(enemyPrefeb, new Vector3(0, 0, 6), enemyPrefeb.transform.rotation);//new Vector3(0, 0, 6) for random coordinate.
-        SpawnEnemyWave(waveCount);
+        SpawnEnemyWave(3);
         SpawnPowerupPrefab();
     }
 
@@ -28,13 +29,13 @@ public class SpawnManagerX : MonoBehaviour
     void Update()
     {
         enemyCount = FindObjectsOfType<Enemy>().Length;
-        
 
-        if (enemyCount == 0)
+
+        if (enemyCount == 0 && !isSpawning)
         {
             waveCount++;
-            SpawnEnemyWave(waveCount);
-            SpawnPowerupPrefab();
+            SpawnEnemyWave(1);
+            //SpawnPowerupPrefab();
         }
 
     }
@@ -53,9 +54,9 @@ public class SpawnManagerX : MonoBehaviour
     }
 
 
-    void SpawnEnemyWave(int enmeytoSpwan)
+    void SpawnEnemyWave(int enemytoSpawn)
     {
-        for(int i = 0; i < enmeytoSpwan; i++)
+        for(int i = 0; i < enemytoSpawn; i++)
         {
             Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
         }
